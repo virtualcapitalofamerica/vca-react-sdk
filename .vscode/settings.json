@@ -1,0 +1,32 @@
+{
+  "workbench.colorCustomizations": {
+    "activityBar.activeBackground": "#14266b",
+    "activityBar.activeBorder": "#ffffff",
+    "activityBar.background": "#14266b",
+    "activityBar.foreground": "#e7e7e7",
+    "activityBar.inactiveForeground": "#e7e7e799",
+    "activityBarBadge.background": "#d68898",
+    "activityBarBadge.foreground": "#15202b",
+    "statusBar.background": "#344898",
+    "statusBar.foreground": "#e7e7e7",
+    "statusBarItem.hoverBackground": "#14266b",
+    "titleBar.activeBackground": "#344898",
+    "titleBar.activeForeground": "#e7e7e7",
+    "titleBar.inactiveBackground": "#34489899",
+    "titleBar.inactiveForeground": "#e7e7e799",
+    "sash.hoverBorder": "#14266b",
+    "statusBarItem.remoteBackground": "#344898",
+    "statusBarItem.remoteForeground": "#e7e7e7",
+    "commandCenter.border": "#e7e7e799"
+  },
+  "window.zoomLevel": 0,
+  "editor.tabSize": 2,
+  "editor.insertSpaces": true,
+  "editor.detectIndentation": false,
+  "files.autoSave": "afterDelay",
+  "explorer.confirmDragAndDrop": false,
+  "extensions.ignoreRecommendations": false,
+  "typescript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.format.insertSpaceBeforeFunctionParenthesis": true,
+  "javascript.format.insertSpaceAfterConstructor": true
+}
