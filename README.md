@@ -1,25 +1,24 @@
-# @vca/react-sdk
+# @virtualcapitalofamerica/react-sdk
 
 ## Description
 
-The @vca/react-sdk is a collection of React-based UI components designed to aid in the development of web applications. This library includes a variety of user interface elements ranging from simple alerts and spinners to more complex components like document viewers and data grids, providing developers with essential tools to create intuitive and engaging user interfaces.
+The @virtualcapitalofamerica/react-sdk is a collection of React-based UI components designed to aid in the development of web applications. This library includes a variety of user interface elements ranging from simple alerts and spinners to more complex components like document viewers and data grids, providing developers with essential tools to create intuitive and engaging user interfaces.
 
 ## Installation
 
 Install the library in your project with the following command:
 
-> npm install @vca/react-sdk
+> npm install @virtualcapitalofamerica/react-sdk
 
 ## Components
 
 - **VeripassStandardSignin**: A React component designed to handle user authentication via email and password to create an intuitive sign-in experience.
 
-
 For more details on each component, including usage and configuration options, please refer to the full documentation.
 
 ## Development
 
-npm run build;npm version patch;npm publish
+> npm run build;npm version patch;npm publish
 
 ## Documentation
 

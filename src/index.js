@@ -1,7 +1,7 @@
 // src/index.js
 
-/* Verify */
-export { VeripassUserVerificationStatus as VeripassUserVerificationStatus } from './components/verify/VeripassUserVerificationStatus';
+/* Payment */
+export { VcaCreditCardForm as VcaCreditCardForm } from './components/payment/VcaCreditCardForm.jsx';
 
 export { useLocalStorage as useLocalStorage } from './hooks/useLocalStorage.hook.js';
 

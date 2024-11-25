@@ -1,6 +1,6 @@
 {
-  "name": "@vca/react-sdk",
-  "version": "1.0.89",
+  "name": "@virtualcapitalofamerica/react-sdk",
+  "version": "1.0.1",
   "description": "UI SDK components for Virtual capital of America",
   "main": "dist/react-sdk.cjs.js",
   "module": "dist/react-sdk.esm.js",
@@ -48,7 +48,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/virtualcapitalofamerica/vca-react-sdk-react-sdk.git"
+    "url": "git+https://github.com/virtualcapitalofamerica/vca-react-sdk-react-sdk.git"
   },
   "homepage": "https://github.com/virtualcapitalofamerica/vca-react-sdk-react-sdk",
   "keywords": [
