@@ -1,8 +1,8 @@
 import SystemService from './system/system.service';
 
-import DeviceManagementService from './device/device-management.service';
+import CreditCardManagementService from './credit-card/credit-card-management.service';
 
 export {
   SystemService,
-  DeviceManagementService
+  CreditCardManagementService
 };

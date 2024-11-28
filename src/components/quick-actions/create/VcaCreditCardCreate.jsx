@@ -3,6 +3,14 @@ import styled from 'styled-components';
 import { TextField, Typography, Button } from '@mui/material';
 import InfoOutlined from '@mui/icons-material/InfoOutlined';
 
+import { CreditCardManagementService } from '@services';
+
+import visaLogo from '@assets/visa-logo.svg';
+import mastercardLogo from '@assets/mastercard-logo.svg';
+import amexLogo from '@assets/amex-logo.svg';
+import cvcLogo from '@assets/cvc-logo.svg';
+import vcaLogo from '@assets/vca-logo.svg';
+
 const Container = styled.article`
   width: ${(props) => (props.$isPopup ? '800px' : '100%')};
   ${(props) => (props.$isPopup ? '' : 'flex-grow: 1;')};
@@ -24,11 +32,12 @@ const Container = styled.article`
   }
 `;
 
-import visaLogo from '@assets/visa-logo.svg';
-import mastercardLogo from '@assets/mastercard-logo.svg';
-import amexLogo from '@assets/amex-logo.svg';
-import cvcLogo from '@assets/cvc-logo.svg';
-import vcaLogo from '@assets/vca-logo.svg';
+async function createEntity({ Service, payload, apiKey, debug = false }) {
+  const entityService = new Service({ apiKey, settings: { debug } });
+  const entityResponse = await entityService.create(payload);
+
+  return entityResponse;
+}
 
 const initialState = {
   identity: '',
@@ -69,9 +78,38 @@ export const VcaCreditCardCreate = ({
     return true;
   };
 
-  const handleSubmit = () => {
-    if (itemOnAction) {
-      itemOnAction('vca-credit-card-form-done', null);
+  const handleSubmit = async (event) => {
+    try {
+      if (event) {
+        event.preventDefault();
+      }
+      setIsLoading(true);
+
+      const response = await createEntity({ payload: user, Service: CreditCardManagementService, debug, apiKey });
+
+      if (itemOnAction) {
+        itemOnAction('vca-credit-card-create-done', null);
+      }
+
+      // Update parent states
+      setIsLoading(false);
+
+      if (onUpdatedEntity) {
+        onUpdatedEntity('vca-credit-card-create', response);
+      }
+
+      if (setIsOpen) {
+        setIsOpen(false);
+      }
+    } catch (error) {
+      console.error(error);
+      setIsLoading(false);
+      if (onUpdatedEntity) {
+        onUpdatedEntity('error', null);
+      }
+      if (setIsOpen) {
+        setIsOpen(false);
+      }
     }
   };
 
@@ -133,13 +171,6 @@ export const VcaCreditCardCreate = ({
                     label="Expiry Date (MM/YY)"
                     value={creditCardData.expiryDate}
                     placeholder="MM/YY"
-                    InputProps={{
-                      endAdornment: (
-                        <div className="d-flex align-items-end">
-                          <img src={cvcLogo} alt="CVC" className="me-1" />
-                        </div>
-                      ),
-                    }}
                     required
                     onChange={(event) => handleDataChange('expiryDate', event.target.value)}
                   />
@@ -154,7 +185,11 @@ export const VcaCreditCardCreate = ({
                     value={creditCardData.cvc}
                     placeholder="123"
                     InputProps={{
-                      endAdornment: <InfoOutlined />,
+                      endAdornment: (
+                        <div className="d-flex align-items-end">
+                          <img src={cvcLogo} alt="CVC" className="me-1" />
+                        </div>
+                      ),
                     }}
                     required
                     onChange={(event) => handleDataChange('cvc', event.target.value)}
