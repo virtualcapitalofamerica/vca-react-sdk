@@ -87,7 +87,7 @@ export const VcaCreditCardCreate = ({
       }
       setIsLoading(true);
 
-      const response = await createEntity({ payload: user, Service: CreditCardManagementService, debug, apiKey });
+      const response = await createEntity({ payload: creditCardData, Service: CreditCardManagementService, debug, apiKey });
 
       if (itemOnAction) {
         itemOnAction('vca-credit-card-create-done', null);
