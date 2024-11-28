@@ -3,3 +3,7 @@
     'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
 }
+
+.vca *, .vca *::before, .vca *::after {
+  box-sizing: border-box;
+}

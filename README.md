@@ -18,7 +18,21 @@ For more details on each component, including usage and configuration options, p
 
 ## Development
 
-> npm run build;npm version patch;npm publish
+### Requirements
+
+> npm install -g sass
+
+### Compile
+
+> sass src/styles/_bootstrap-namespaced.scss src/styles/bootstrap-namespaced.css;npm run build
+
+### Debug with Storybook
+
+> npm run storybook
+
+### Publish
+
+> sass src/styles/_bootstrap-namespaced.scss src/styles/bootstrap-namespaced.css;npm run build;npm version patch;npm publish
 
 ## Documentation
 
