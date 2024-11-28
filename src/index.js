@@ -1,7 +1,7 @@
 // src/index.js
 
 /* Payment */
-export { VcaCreditCardForm as VcaCreditCardForm } from './components/payment/VcaCreditCardForm.jsx';
+export { VcaCreditCardCreate as VcaCreditCardCreate } from './components/quick-actions/create/VcaCreditCardCreate.jsx';
 
 export { useLocalStorage as useLocalStorage } from './hooks/useLocalStorage.hook.js';
 

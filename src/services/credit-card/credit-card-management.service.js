@@ -1,6 +1,6 @@
 import BaseApi from '../base/api.service';
 
-export default class DeviceManagementService extends BaseApi {
+export default class CreditCardManagementService extends BaseApi {
   constructor (args) {
     super(args);
 
@@ -8,10 +8,10 @@ export default class DeviceManagementService extends BaseApi {
     this.serviceEndpoints = {
       baseUrlProd: process.env.VCA_SERVICE_URL,
       baseUrlDev: process.env.VCA_DEV_SERVICE_URL,
-      get: '/device/',
-      create: '/device',
-      update: '/device',
-      delete: '/device',
+      get: '/card/credit-card/',
+      create: '/card/credit-card',
+      update: '/card/credit-card',
+      delete: '/card/credit-card',
     };
     this.settings = args?.settings || {}
   }

@@ -24,6 +24,12 @@ const Container = styled.article`
   }
 `;
 
+import visaLogo from '@assets/visa-logo.svg';
+import mastercardLogo from '@assets/mastercard-logo.svg';
+import amexLogo from '@assets/amex-logo.svg';
+import cvcLogo from '@assets/cvc-logo.svg';
+import vcaLogo from '@assets/vca-logo.svg';
+
 const initialState = {
   identity: '',
   cardNumber: '',
@@ -32,7 +38,7 @@ const initialState = {
   cardHolderName: '',
 };
 
-export const VcaCreditCardForm = ({
+export const VcaCreditCardCreate = ({
   entity,
   itemOnAction,
   onUpdatedEntity,
@@ -104,21 +110,9 @@ export const VcaCreditCardForm = ({
                     InputProps={{
                       endAdornment: (
                         <div className="d-flex align-items-center">
-                          <img
-                            src="https://js.stripe.com/v3/fingerprinted/img/visa-729c05c240c4bdb47b03ac81d9945bfe.svg"
-                            alt="Visa"
-                            className="me-1"
-                          />
-                          <img
-                            src="https://js.stripe.com/v3/fingerprinted/img/mastercard-4d8844094130711885b5e41b28c9848f.svg"
-                            alt="MasterCard"
-                            className="me-1"
-                          />
-                          <img
-                            src="https://js.stripe.com/v3/fingerprinted/img/amex-a49b82f46c5cd6a96a6e418a6ca1717c.svg"
-                            alt="Amex"
-                            className="me-1"
-                          />
+                          <img src={visaLogo} alt="Visa" className="me-1" />
+                          <img src={mastercardLogo} alt="MasterCard" className="me-1" />
+                          <img src={amexLogo} alt="Amex" className="me-1" />
                         </div>
                       ),
                     }}
@@ -139,6 +133,13 @@ export const VcaCreditCardForm = ({
                     label="Expiry Date (MM/YY)"
                     value={creditCardData.expiryDate}
                     placeholder="MM/YY"
+                    InputProps={{
+                      endAdornment: (
+                        <div className="d-flex align-items-end">
+                          <img src={cvcLogo} alt="CVC" className="me-1" />
+                        </div>
+                      ),
+                    }}
                     required
                     onChange={(event) => handleDataChange('expiryDate', event.target.value)}
                   />
@@ -177,14 +178,10 @@ export const VcaCreditCardForm = ({
               </article>
 
               {/* Submit button */}
-              <footer className="d-flex justify-content-end">
+              <footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
                 {isLoading && (
                   <button type="button" disabled className="btn btn-primary">
-                    <span
-                      className="spinner-border spinner-border-sm me-2"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
                     Saving...
                   </button>
                 )}
@@ -210,6 +207,13 @@ export const VcaCreditCardForm = ({
                 )}
               </footer>
             </form>
+
+            <section style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '1.5rem' }}>
+              <Typography style={{ fontSize: '0.775rem', marginRight: '7px', color: '#98a6ad', fontWeight: '400' }}>
+                Powered by
+              </Typography>
+              <img src={vcaLogo} alt="VCA logo" height="15" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
+            </section>
           </div>
         </div>
       </Container>

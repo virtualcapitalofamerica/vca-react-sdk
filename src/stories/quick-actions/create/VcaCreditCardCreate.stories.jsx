@@ -1,10 +1,10 @@
 import React from 'react';
 import { MemoryRouter } from 'react-router-dom';
-import { VeripassUserVerificationStatus } from '../../components/verify/VeripassUserVerificationStatus';
+import { VcaCreditCardCreate } from '../../../components/quick-actions/create/VcaCreditCardCreate';
 
 export default {
-  title: 'Verify/VeripassUserVerificationStatus',
-  component: VeripassUserVerificationStatus,
+  title: 'Quick-Actions/VcaCreditCardCreate',
+  component: VcaCreditCardCreate,
   parameters: {
     layout: 'centered',
   },
@@ -25,7 +25,7 @@ export default {
 
 const Template = (args) => (
   <MemoryRouter>
-    <VeripassUserVerificationStatus {...args} />
+    <VcaCreditCardCreate {...args} />
   </MemoryRouter>
 );
 
