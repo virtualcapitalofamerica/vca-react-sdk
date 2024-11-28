@@ -55,7 +55,7 @@ export const VcaCreditCardCreate = ({
   onUpdatedEntity,
   debug = false,
   apiKey = '',
-  isPopupContext = true,
+  isPopupContext = false,
 }) => {
   // UI States
   const [isLoading, setIsLoading] = useState(false);
