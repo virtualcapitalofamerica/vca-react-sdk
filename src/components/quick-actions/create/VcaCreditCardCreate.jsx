@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import '@styles/bootstrap-namespaced.css';
-import '@styles/styles.css';
 
-import styled from 'styled-components';
 import { Paper, TextField, Typography, Button } from '@mui/material';
+import { VcaLayout } from '../../shared/VcaLayout';
 
 import { CreditCardManagementService } from '@services';
 
@@ -11,34 +9,18 @@ import visaLogo from '@assets/visa-logo.svg';
 import mastercardLogo from '@assets/mastercard-logo.svg';
 import amexLogo from '@assets/amex-logo.svg';
 import cvcLogo from '@assets/cvc-logo.svg';
-import vcaLogo from '@assets/vca-logo.svg';
-
-const Container = styled.article`
-  width: ${(props) => (props.$isPopup ? '800px' : '100%')};
-  ${(props) => (props.$isPopup ? '' : 'flex-grow: 1;')};
-
-  @media (max-width: 1199px) {
-    width: ${(props) => (props.$isPopup ? '700px' : '100%')};
-  }
-
-  @media (max-width: 991px) {
-    width: ${(props) => (props.$isPopup ? '600px' : '100%')};
-  }
-
-  @media (max-width: 767px) {
-    width: ${(props) => (props.$isPopup ? '500px' : '100%')};
-  }
-
-  @media (max-width: 575px) {
-    width: ${(props) => (props.$isPopup ? '100%' : '100%')};
-  }
-`;
 
 async function createEntity({ Service, payload, apiKey, debug = false }) {
   const entityService = new Service({ apiKey, settings: { debug } });
   const entityResponse = await entityService.create(payload);
 
   return entityResponse;
+}
+
+async function emitEvent({ payload, error, eventHandler }) {
+  if (eventHandler) {
+    eventHandler({ action: 'credit-card-created', namespace: 'vca', payload, error });
+  }
 }
 
 const initialState = {
@@ -49,14 +31,7 @@ const initialState = {
   cardHolderName: '',
 };
 
-export const VcaCreditCardCreate = ({
-  entity,
-  itemOnAction,
-  onUpdatedEntity,
-  debug = false,
-  apiKey = '',
-  isPopupContext = false,
-}) => {
+export const VcaCreditCardCreate = ({ entity, onEvent, debug = false, apiKey = '', isPopupContext = false }) => {
   // UI States
   const [isLoading, setIsLoading] = useState(false);
 
@@ -89,16 +64,10 @@ export const VcaCreditCardCreate = ({
 
       const response = await createEntity({ payload: creditCardData, Service: CreditCardManagementService, debug, apiKey });
 
-      if (itemOnAction) {
-        itemOnAction('vca-credit-card-create-done', null);
-      }
-
       // Update parent states
       setIsLoading(false);
 
-      if (onUpdatedEntity) {
-        onUpdatedEntity('vca-credit-card-create', response);
-      }
+      emitEvent({ payload: response, error: null, eventHandler: onEvent });
 
       if (setIsOpen) {
         setIsOpen(false);
@@ -106,9 +75,8 @@ export const VcaCreditCardCreate = ({
     } catch (error) {
       console.error(error);
       setIsLoading(false);
-      if (onUpdatedEntity) {
-        onUpdatedEntity('error', null);
-      }
+
+      emitEvent({ payload: null, error, eventHandler: onEvent });
       if (setIsOpen) {
         setIsOpen(false);
       }
@@ -126,17 +94,7 @@ export const VcaCreditCardCreate = ({
 
   return (
     <>
-      <Container
-        $isPopup={isPopupContext}
-        className={`vca ${!isPopupContext ? 'col-12' : ''}`}
-        style={{ boxSizing: 'border-box' }}
-      >
-        <section style={{ display: 'flex', justifyContent: 'flex-end', marginBottom: '1rem' }}>
-          <Typography style={{ fontSize: '0.775rem', marginRight: '7px', color: '#98a6ad', fontWeight: '400' }}>
-            Powered by
-          </Typography>
-          <img src={vcaLogo} alt="VCA logo" height="15" style={{ marginTop: 'auto', marginBottom: 'auto' }} />
-        </section>
+      <VcaLayout $isPopup={isPopupContext}>
         <Paper className="container-fluid mb-0">
           <section className="p-4">
             <header className="d-flex justify-content-center mt-2 mb-3 ">
@@ -258,7 +216,7 @@ export const VcaCreditCardCreate = ({
             </section>
           </section>
         </Paper>
-      </Container>
+      </VcaLayout>
     </>
   );
 };
