@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 import { Paper, TextField, Typography, Button } from '@mui/material';
-import { VcaLayout } from '../../shared/VcaLayout';
+import { VcaLayout } from '../../shared/layouts/VcaLayout';
 
 import { CreditCardManagementService } from '@services';
 

@@ -32,7 +32,9 @@ For more details on each component, including usage and configuration options, p
 
 ### Publish
 
-> sass src/styles/_bootstrap-namespaced.scss src/styles/bootstrap-namespaced.css;npm run build;npm version patch;npm publish
+⚠️ Compile first!
+
+> npm version patch;npm publish
 
 ## Documentation
 
