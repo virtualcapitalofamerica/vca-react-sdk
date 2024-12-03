@@ -19,7 +19,7 @@ async function createEntity({ Service, payload, apiKey, debug = false }) {
 
 async function emitEvent({ payload, error, eventHandler }) {
   if (eventHandler) {
-    eventHandler({ action: 'credit-card-created', namespace: 'vca', payload, error });
+    eventHandler({ action: 'credit-card::created', namespace: 'vca', payload, error });
   }
 }
 
