@@ -60,7 +60,7 @@ module.exports = {
       extensions: ['.js', '.jsx'],
     }),
     postcss({
-      extract: path.resolve('dist', 'styles','main.css'),
+      extract: path.resolve('dist', 'styles', 'main.css'),
       modules: false,
       minimize: true,
       sourceMap: true,
@@ -75,8 +75,8 @@ module.exports = {
     image(),
     json(),
     replace({
-      'process.env.VCA_SERVICE_URL': JSON.stringify(process.env.VCA_SERVICE_URL),
-      'process.env.VCA_DEV_SERVICE_URL': JSON.stringify(process.env.VCA_DEV_SERVICE_URL),
+      'process.env.VCA_PRODUCTION_SERVICE_URL': JSON.stringify(process.env.VCA_PRODUCTION_SERVICE_URL),
+      'process.env.VCA_DEVELOPMENT_SERVICE_URL': JSON.stringify(process.env.VCA_DEVELOPMENT_SERVICE_URL),
       preventAssignment: true,
     }),
     copy({

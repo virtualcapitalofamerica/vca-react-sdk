@@ -10,8 +10,8 @@ import mastercardLogo from '@assets/mastercard-logo.svg';
 import amexLogo from '@assets/amex-logo.svg';
 import cvcLogo from '@assets/cvc-logo.svg';
 
-async function createEntity({ Service, payload, apiKey, debug = false }) {
-  const entityService = new Service({ apiKey, settings: { debug } });
+async function createEntity({ Service, payload, apiKey, environment = 'production' }) {
+  const entityService = new Service({ apiKey, settings: { environment } });
   const entityResponse = await entityService.create(payload);
 
   return entityResponse;
@@ -31,7 +31,7 @@ const initialState = {
   cardHolderName: '',
 };
 
-export const VcaCreditCardCreate = ({ entity, onEvent, debug = false, apiKey = '', isPopupContext = false }) => {
+export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production', apiKey = '', isPopupContext = false }) => {
   // UI States
   const [isLoading, setIsLoading] = useState(false);
 
@@ -62,7 +62,7 @@ export const VcaCreditCardCreate = ({ entity, onEvent, debug = false, apiKey = '
       }
       setIsLoading(true);
 
-      const response = await createEntity({ payload: creditCardData, Service: CreditCardManagementService, debug, apiKey });
+      const response = await createEntity({ payload: creditCardData, Service: CreditCardManagementService, environment, apiKey });
 
       // Update parent states
       setIsLoading(false);

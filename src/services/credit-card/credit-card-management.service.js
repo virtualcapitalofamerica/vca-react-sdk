@@ -6,8 +6,9 @@ export default class CreditCardManagementService extends BaseApi {
 
     this.api_key = args?.apiKey || '';
     this.serviceEndpoints = {
-      baseUrlProd: process.env.VCA_SERVICE_URL,
-      baseUrlDev: process.env.VCA_DEV_SERVICE_URL,
+      baseUrlProduction: process.env.VCA_PRODUCTION_SERVICE_URL,
+      baseUrlDevelopment: process.env.VCA_DEVELOPMENT_SERVICE_URL,
+      baseUrlLocal: process.env.VCA_LOCAL_SERVICE_URL,
       get: '/card/credit-card/',
       create: '/card/credit-card',
       update: '/card/credit-card',
