@@ -83,7 +83,7 @@ module.exports = {
     copy({
       targets: [
         { src: 'src/fonts/*', dest: 'dist/fonts' },
-        { src: 'src/assets/*.svg', dest: 'dist/assets' }
+        { src: 'src/assets/*', dest: 'dist/assets' }
       ]
     })
   ],
