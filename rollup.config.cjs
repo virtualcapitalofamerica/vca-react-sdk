@@ -77,6 +77,7 @@ module.exports = {
     replace({
       'process.env.VCA_PRODUCTION_SERVICE_URL': JSON.stringify(process.env.VCA_PRODUCTION_SERVICE_URL),
       'process.env.VCA_DEVELOPMENT_SERVICE_URL': JSON.stringify(process.env.VCA_DEVELOPMENT_SERVICE_URL),
+      'process.env.VCA_LOCAL_SERVICE_URL': JSON.stringify(process.env.VCA_LOCAL_SERVICE_URL),
       preventAssignment: true,
     }),
     copy({
