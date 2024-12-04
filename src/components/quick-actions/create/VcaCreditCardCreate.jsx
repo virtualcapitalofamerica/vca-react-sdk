@@ -17,9 +17,9 @@ async function createEntity({ Service, payload, apiKey, environment = 'productio
   return entityResponse;
 }
 
-async function emitEvent({ payload, error, eventHandler }) {
+async function emitEvent({ action, payload, error, eventHandler }) {
   if (eventHandler) {
-    eventHandler({ action: 'credit-card::created', namespace: 'vca', payload, error });
+    eventHandler({ action, namespace: 'vca', payload, error });
   }
 }
 
@@ -31,7 +31,7 @@ const initialState = {
   cardHolderName: '',
 };
 
-export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production', apiKey = '', isPopupContext = false }) => {
+export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production', apiKey = '', setIsOpen, isPopupContext = false }) => {
   // UI States
   const [isLoading, setIsLoading] = useState(false);
 
@@ -67,7 +67,7 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
       // Update parent states
       setIsLoading(false);
 
-      emitEvent({ payload: response, error: null, eventHandler: onEvent });
+      emitEvent({ action: 'vca-credit-card::created', payload: response, error: null, eventHandler: onEvent });
 
       if (setIsOpen) {
         setIsOpen(false);
@@ -76,7 +76,7 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
       console.error(error);
       setIsLoading(false);
 
-      emitEvent({ payload: null, error, eventHandler: onEvent });
+      emitEvent({ action: 'vca-credit-card::created', payload: null, error, eventHandler: onEvent });
       if (setIsOpen) {
         setIsOpen(false);
       }
