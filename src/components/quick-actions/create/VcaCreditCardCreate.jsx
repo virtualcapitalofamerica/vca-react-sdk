@@ -85,8 +85,10 @@ export const VcaCreditCardCreate = ({
 
       const response = await createEntity({ payload: creditCardData, Service: CreditCardManagementService, environment, apiKey });
 
-      // Update parent states
-      setIsLoading(false);
+      if (!entityResponse || !entityResponse.success) {
+        emitEvent({ action: 'vca-credit-card::error', error: entityResponse, eventHandler: onEvent });
+        return null;
+      }
 
       emitEvent({ action: 'vca-credit-card::created', payload: response, error: null, eventHandler: onEvent });
 
