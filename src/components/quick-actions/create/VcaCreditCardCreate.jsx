@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 
 import { Paper, TextField, Typography, Button } from '@mui/material';
+import { usePaymentInputs } from 'react-payment-inputs';
+import images from 'react-payment-inputs/images';
+
 import { VcaLayout } from '../../shared/layouts/VcaLayout';
 
 import { CreditCardManagementService } from '@services';
@@ -25,18 +28,30 @@ async function emitEvent({ action, payload, error, eventHandler }) {
 
 const initialState = {
   identity: '',
-  cardNumber: '',
-  expiryDate: '',
+  card_number: '',
+  expiry_date: '',
   cvc: '',
-  cardHolderName: '',
+  cardholder_name: '',
+  is_default: true,
 };
 
-export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production', apiKey = '', setIsOpen, isPopupContext = false }) => {
+export const VcaCreditCardCreate = ({
+  entity,
+  onEvent,
+  environment = 'production',
+  apiKey = '',
+  setIsOpen,
+  isPopupContext = false,
+}) => {
   // UI States
   const [isLoading, setIsLoading] = useState(false);
 
   // Models
   const [creditCardData, setCreditCardData] = useState(initialState);
+
+  // Hooks
+  const { errors: formErrors, getCardImageProps, getCardNumberProps, getExpiryDateProps, getCVCProps, meta } = usePaymentInputs();
+  const { erroredInputs, touchedInputs } = meta;
 
   const handleDataChange = (fieldName, data) => {
     setCreditCardData((prevUserData) => ({
@@ -50,7 +65,13 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
       return false;
     }
 
-    // TODO: Add validations
+    if (!creditCardData.card_number || !creditCardData.expiry_date || !creditCardData.cvc || !creditCardData.cardholder_name) {
+      return false;
+    }
+
+    if (meta.erroredInputs.cardNumber || meta.erroredInputs.expiryDate || meta.erroredInputs.cvc) {
+      return false;
+    }
 
     return true;
   };
@@ -108,26 +129,41 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
                 <section className="mb-3 col-12">
                   <TextField
                     className="w-100"
-                    type="text"
+                    type="tel"
                     inputMode="numeric"
                     id="card-number-input"
                     label="Card number"
                     value={creditCardData.name}
                     placeholder="0000 0000 0000 0000"
-                    helperText=""
                     InputProps={{
                       endAdornment: (
                         <div className="d-flex align-items-center">
-                          <img src={visaLogo} alt="Visa" className="me-1" />
-                          <img src={mastercardLogo} alt="MasterCard" className="me-1" />
-                          <img src={amexLogo} alt="Amex" className="me-1" />
+                          {meta.cardType ? (
+                            <svg
+                              {...getCardImageProps({ images })}
+                              style={{ marginRight: '8px', width: '24px', height: '16px' }}
+                            />
+                          ) : (
+                            <>
+                              <img src={visaLogo} alt="Visa" className="me-1" style={{ width: '24px' }} />
+                              <img src={mastercardLogo} alt="MasterCard" className="me-1" style={{ width: '24px' }} />
+                              <img src={amexLogo} alt="Amex" className="me-1" style={{ width: '24px' }} />
+                            </>
+                          )}
                         </div>
                       ),
                     }}
+                    inputRef={getCardNumberProps().ref}
+                    {...getCardNumberProps({
+                      refKey: 'inputRef',
+                      onChange: (e) => handleDataChange('card_number', e.target.value),
+                    })}
+                    error={(erroredInputs.cardNumber && touchedInputs.cardNumber) || !!formErrors?.payment?.cardnumber?.message}
+                    helperText={
+                      (erroredInputs.cardNumber && touchedInputs.cardNumber && erroredInputs.cardNumber) ||
+                      formErrors?.payment?.cardnumber?.message
+                    }
                     required
-                    onChange={(event) => {
-                      handleDataChange('cardNumber', event.target.value);
-                    }}
                     autoComplete="off"
                   />
                 </section>
@@ -139,10 +175,19 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
                     type="text"
                     id="expiry-date-input"
                     label="Expiry Date (MM/YY)"
-                    value={creditCardData.expiryDate}
+                    value={creditCardData.expiry_date}
                     placeholder="MM/YY"
                     required
-                    onChange={(event) => handleDataChange('expiryDate', event.target.value)}
+                    {...getExpiryDateProps({
+                      refKey: 'inputRef',
+                      onChange: (e) => handleDataChange('expiry_date', e.target.value),
+                    })}
+                    inputRef={getExpiryDateProps().ref}
+                    error={(erroredInputs.expiryDate && touchedInputs.expiryDate) || !!formErrors?.payment?.expiry?.message}
+                    helperText={
+                      (erroredInputs.expiryDate && touchedInputs.expiryDate && erroredInputs.expiryDate) ||
+                      formErrors?.payment?.expiry?.message
+                    }
                   />
                 </section>
                 <section className="mb-3 col-12 col-md-6">
@@ -162,7 +207,14 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
                       ),
                     }}
                     required
-                    onChange={(event) => handleDataChange('cvc', event.target.value)}
+                    {...getCVCProps({
+                      refKey: 'inputRef',
+                      onChange: (e) => handleDataChange('cvc', e.target.value),
+                    })}
+                    error={(erroredInputs.cvc && touchedInputs.cvc) || !!formErrors?.payment?.ccv?.message}
+                    helperText={
+                      (erroredInputs.cvc && touchedInputs.cvc && erroredInputs.cvc) || formErrors?.payment?.ccv?.message
+                    }
                   />
                 </section>
               </article>
@@ -173,11 +225,12 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
                     type="text"
                     id="card-holder-name-input"
                     label="Card Holder Name"
-                    value={creditCardData.cardHolderName}
+                    value={creditCardData.cardholder_name}
                     placeholder="Jhon Doe"
-                    helperText="Enter cardholder's full name"
                     required
-                    onChange={(event) => handleDataChange('cardHolderName', event.target.value)}
+                    onChange={(event) => handleDataChange('cardholder_name', event.target.value)}
+                    error={!!formErrors?.payment?.accountHolderName?.message}
+                    helperText={formErrors?.payment?.accountHolderName?.message || `Enter cardholder's full name`}
                   />
                 </section>
               </article>
