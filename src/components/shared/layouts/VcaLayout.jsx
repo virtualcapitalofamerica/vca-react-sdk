@@ -55,16 +55,20 @@ export const VcaLayout = ({
 
       <main {...props}>{children}</main>
 
-      <section
-        className={`d-flex ${ui?.vertical === 'bottom' ? 'mb-1' : 'mt-3'} ${
-          ui?.alignment === 'start' ? 'justify-content-start' : ''
-        } ${ui?.alignment === 'center' ? 'justify-content-center' : ''} ${ui?.alignment === 'end' ? 'justify-content-end' : ''}`}
-      >
-        <Typography className="mb-0 me-2 text-muted" style={{ fontSize: '0.775rem', fontWeight: 400 }}>
-          Powered by
-        </Typography>
-        <img src={vcaLogo} alt="VCA logo" height="15" />
-      </section>
+      {ui?.showLogo && ui?.vertical === 'bottom' && (
+        <section
+          className={`d-flex ${ui?.vertical === 'bottom' ? 'mb-1' : 'mt-3'} ${
+            ui?.alignment === 'start' ? 'justify-content-start' : ''
+          } ${ui?.alignment === 'center' ? 'justify-content-center' : ''} ${
+            ui?.alignment === 'end' ? 'justify-content-end' : ''
+          }`}
+        >
+          <Typography className="mb-0 me-2 text-muted" style={{ fontSize: '0.775rem', fontWeight: 400 }}>
+            Powered by
+          </Typography>
+          <img src={vcaLogo} alt="VCA logo" height="15" />
+        </section>
+      )}
     </Container>
   );
 };
