@@ -90,7 +90,7 @@ export const VcaCreditCardCreate = ({
         return null;
       }
 
-      emitEvent({ action: 'vca-credit-card::created', payload: response, error: null, eventHandler: onEvent });
+      emitEvent({ action: 'vca-credit-card::created', payload: entityResponse, error: null, eventHandler: onEvent });
 
       if (setIsOpen) {
         setIsOpen(false);
