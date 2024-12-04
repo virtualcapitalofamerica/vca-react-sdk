@@ -37,7 +37,7 @@ export const VcaLayout = ({
   ...props
 }) => {
   return (
-    <Container $ispopup={isPopupContext} className={`vca ${!isPopupContext ? 'col-12' : ''}`} style={{ boxSizing: 'border-box' }}>
+    <Container $ispopup={isPopupContext} className={`vca container-fluid ${!isPopupContext ? 'col-12' : ''}`} style={{ boxSizing: 'border-box' }}>
       {ui?.showLogo && ui?.vertical === 'top' && (
         <section
           className={`d-flex ${ui?.vertical === 'top' ? 'mb-1' : 'mt-3'} ${

@@ -116,7 +116,7 @@ export const VcaCreditCardCreate = ({
   return (
     <>
       <VcaLayout isPopupContext={isPopupContext}>
-        <section className="container-fluid mb-0">
+        <section className="mb-0">
           <header className="d-flex justify-content-center mt-2 mb-3 ">
             <Typography variant="h6" className="text-center">
               Verify your payment method
