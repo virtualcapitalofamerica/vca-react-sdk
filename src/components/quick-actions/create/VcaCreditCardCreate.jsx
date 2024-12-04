@@ -95,127 +95,125 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
   return (
     <>
       <VcaLayout isPopupContext={isPopupContext}>
-        <Paper className="container-fluid mb-0">
-          <section className="p-4">
-            <header className="d-flex justify-content-center mt-2 mb-3 ">
-              <Typography variant="h6" className="text-center">
-                Verify your payment method
-              </Typography>
-            </header>
+        <section className="container-fluid mb-0">
+          <header className="d-flex justify-content-center mt-2 mb-3 ">
+            <Typography variant="h6" className="text-center">
+              Verify your payment method
+            </Typography>
+          </header>
 
-            <section>
-              <form onSubmit={handleSubmit}>
-                <article className="row">
-                  <section className="mb-3 col-12">
-                    <TextField
-                      className="w-100"
-                      type="text"
-                      inputmode="numeric"
-                      id="card-number-input"
-                      label="Card number"
-                      value={creditCardData.name}
-                      placeholder="0000 0000 0000 0000"
-                      helperText=""
-                      InputProps={{
-                        endAdornment: (
-                          <div className="d-flex align-items-center">
-                            <img src={visaLogo} alt="Visa" className="me-1" />
-                            <img src={mastercardLogo} alt="MasterCard" className="me-1" />
-                            <img src={amexLogo} alt="Amex" className="me-1" />
-                          </div>
-                        ),
-                      }}
-                      required
-                      onChange={(event) => {
-                        handleDataChange('cardNumber', event.target.value);
-                      }}
-                      autoComplete="off"
-                    />
-                  </section>
-                </article>
-                <article className="row">
-                  <section className="mb-3 col-12 col-md-6">
-                    <TextField
-                      className="w-100"
-                      type="text"
-                      id="expiry-date-input"
-                      label="Expiry Date (MM/YY)"
-                      value={creditCardData.expiryDate}
-                      placeholder="MM/YY"
-                      required
-                      onChange={(event) => handleDataChange('expiryDate', event.target.value)}
-                    />
-                  </section>
-                  <section className="mb-3 col-12 col-md-6">
-                    <TextField
-                      className="w-100"
-                      type="text"
-                      inputmode="numeric"
-                      id="cvc-input"
-                      label="CVC"
-                      value={creditCardData.cvc}
-                      placeholder="123"
-                      InputProps={{
-                        endAdornment: (
-                          <div className="d-flex align-items-end">
-                            <img src={cvcLogo} alt="CVC" className="me-1" />
-                          </div>
-                        ),
-                      }}
-                      required
-                      onChange={(event) => handleDataChange('cvc', event.target.value)}
-                    />
-                  </section>
-                </article>
-                <article className="row">
-                  <section className="mb-3 col-12">
-                    <TextField
-                      className="w-100"
-                      type="text"
-                      id="card-holder-name-input"
-                      label="Card Holder Name"
-                      value={creditCardData.cardHolderName}
-                      placeholder="Jhon Doe"
-                      helperText="Enter cardholder's full name"
-                      required
-                      onChange={(event) => handleDataChange('cardHolderName', event.target.value)}
-                    />
-                  </section>
-                </article>
+          <section>
+            <form onSubmit={handleSubmit}>
+              <article className="row">
+                <section className="mb-3 col-12">
+                  <TextField
+                    className="w-100"
+                    type="text"
+                    inputMode="numeric"
+                    id="card-number-input"
+                    label="Card number"
+                    value={creditCardData.name}
+                    placeholder="0000 0000 0000 0000"
+                    helperText=""
+                    InputProps={{
+                      endAdornment: (
+                        <div className="d-flex align-items-center">
+                          <img src={visaLogo} alt="Visa" className="me-1" />
+                          <img src={mastercardLogo} alt="MasterCard" className="me-1" />
+                          <img src={amexLogo} alt="Amex" className="me-1" />
+                        </div>
+                      ),
+                    }}
+                    required
+                    onChange={(event) => {
+                      handleDataChange('cardNumber', event.target.value);
+                    }}
+                    autoComplete="off"
+                  />
+                </section>
+              </article>
+              <article className="row">
+                <section className="mb-3 col-12 col-md-6">
+                  <TextField
+                    className="w-100"
+                    type="text"
+                    id="expiry-date-input"
+                    label="Expiry Date (MM/YY)"
+                    value={creditCardData.expiryDate}
+                    placeholder="MM/YY"
+                    required
+                    onChange={(event) => handleDataChange('expiryDate', event.target.value)}
+                  />
+                </section>
+                <section className="mb-3 col-12 col-md-6">
+                  <TextField
+                    className="w-100"
+                    type="text"
+                    inputMode="numeric"
+                    id="cvc-input"
+                    label="CVC"
+                    value={creditCardData.cvc}
+                    placeholder="123"
+                    InputProps={{
+                      endAdornment: (
+                        <div className="d-flex align-items-end">
+                          <img src={cvcLogo} alt="CVC" className="me-1" />
+                        </div>
+                      ),
+                    }}
+                    required
+                    onChange={(event) => handleDataChange('cvc', event.target.value)}
+                  />
+                </section>
+              </article>
+              <article className="row">
+                <section className="mb-3 col-12">
+                  <TextField
+                    className="w-100"
+                    type="text"
+                    id="card-holder-name-input"
+                    label="Card Holder Name"
+                    value={creditCardData.cardHolderName}
+                    placeholder="Jhon Doe"
+                    helperText="Enter cardholder's full name"
+                    required
+                    onChange={(event) => handleDataChange('cardHolderName', event.target.value)}
+                  />
+                </section>
+              </article>
 
-                {/* Submit button */}
-                <footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
-                  {isLoading && (
-                    <button type="button" disabled className="btn btn-primary">
-                      <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                      Saving...
-                    </button>
-                  )}
+              {/* Submit button */}
+              <footer style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                {isLoading && (
+                  <button type="button" disabled className="btn btn-primary">
+                    <span className="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+                    Saving...
+                  </button>
+                )}
 
-                  {!isLoading && (
-                    <Button
-                      type="button"
-                      variant="contained"
-                      className="my-2"
-                      onClick={handleSubmit}
-                      disabled={!canSubmit()}
-                      sx={{
-                        backgroundColor: !canSubmit() ? '#a0a0a0' : '#323a46',
-                        borderColor: !canSubmit() ? '#a0a0a0' : '#323a46',
-                        '&:hover': {
-                          backgroundColor: !canSubmit() ? '#a0a0a0' : '#404651',
-                          borderColor: !canSubmit() ? '#a0a0a0' : '#404651',
-                        },
-                      }}
-                    >
-                      Continue
-                    </Button>
-                  )}
-                </footer>
-              </form>
-            </section>
+                {!isLoading && (
+                  <Button
+                    type="button"
+                    variant="contained"
+                    className="my-2"
+                    onClick={handleSubmit}
+                    disabled={!canSubmit()}
+                    sx={{
+                      backgroundColor: !canSubmit() ? '#a0a0a0' : '#323a46',
+                      borderColor: !canSubmit() ? '#a0a0a0' : '#323a46',
+                      '&:hover': {
+                        backgroundColor: !canSubmit() ? '#a0a0a0' : '#404651',
+                        borderColor: !canSubmit() ? '#a0a0a0' : '#404651',
+                      },
+                    }}
+                  >
+                    Continue
+                  </Button>
+                )}
+              </footer>
+            </form>
           </section>
-        </Paper>
+        </section>
       </VcaLayout>
     </>
   );
