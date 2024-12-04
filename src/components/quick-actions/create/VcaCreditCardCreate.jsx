@@ -94,7 +94,7 @@ export const VcaCreditCardCreate = ({ entity, onEvent, environment = 'production
 
   return (
     <>
-      <VcaLayout $isPopup={isPopupContext}>
+      <VcaLayout isPopupContext={isPopupContext}>
         <Paper className="container-fluid mb-0">
           <section className="p-4">
             <header className="d-flex justify-content-center mt-2 mb-3 ">
