@@ -97,7 +97,7 @@ export const VcaCreditCardCreate = ({
       console.error(error);
       setIsLoading(false);
 
-      emitEvent({ action: 'vca-credit-card::created', payload: null, error, eventHandler: onEvent });
+      emitEvent({ action: 'vca-credit-card::error', payload: null, error, eventHandler: onEvent });
       if (setIsOpen) {
         setIsOpen(false);
       }
